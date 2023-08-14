@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "417640311940",
+    "project_id": "otonomus-bloc",
+    "storage_bucket": "otonomus-bloc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417640311940:android:056ec08cafec966007e6d1",
+        "android_client_info": {
+          "package_name": "com.example.otonomus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417640311940-12u6fitu35nnq6qvcj5s8j81auj8shfs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqqA69didOPuzNM2TsfUepBPGZ7sG0V2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417640311940-12u6fitu35nnq6qvcj5s8j81auj8shfs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
