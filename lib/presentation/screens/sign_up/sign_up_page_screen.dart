@@ -4,9 +4,7 @@ import 'package:flutter_svg_icons/flutter_svg_icons.dart';
 import 'package:otonomus/business_logic/signup/bloc/signup_bloc.dart';
 import 'package:otonomus/data/enums/enums.dart';
 import 'package:otonomus/navigation/handle_navigation.dart';
-import 'package:otonomus/presentation/shared_widgets/global_error_snackbar.dart';
-import 'package:otonomus/presentation/shared_widgets/global_loading.dart';
-import 'package:otonomus/presentation/shared_widgets/global_textfield.dart';
+import 'package:otonomus/presentation/shared_widgets/shared_widgets.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -22,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
       listener: (context, state) {
         if (state.errorMessage != '') {
           GlobalSnackbar.showError(context, state.errorMessage);
-          BlocProvider.of<SignupBloc>(context).add(ClearError());
+          BlocProvider.of<SignupBloc>(context).add(ClearErrorSignUp());
         }
       },
       child: BlocBuilder<SignupBloc, SignupState>(
@@ -79,9 +77,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           CustomTextField(
                             title: 'First Name',
                             hintText: 'John',
-                            onChanged: (password) {
+                            onChanged: (firstName) {
                               BlocProvider.of<SignupBloc>(context)
-                                  .add(SignupFirstNameChanged(password));
+                                  .add(SignupFirstNameChanged(firstName));
                             },
                           ),
                           CustomTextField(

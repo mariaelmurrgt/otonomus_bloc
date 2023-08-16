@@ -6,21 +6,6 @@ class AuthRepository {
   final _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Future<void> signUp({required String email, required String password}) async {
-  //   try {
-  //     FirebaseAuth.instance
-  //         .createUserWithEmailAndPassword(email: email, password: password);
-  //     } on FirebaseAuthException catch (e) {
-  //       if (e.code == 'weak-password') {
-  //         throw Exception('This password is too week');
-  //       } else if (e.code == 'emial-already-in-use') {
-  //         throw Exception('The account already exists for that email');
-  //       }
-  //   } catch (e) {
-  //     throw Exception(e.toString());
-  //   }
-  // }
-
   Future<String> signUp({
     required String email,
     required String password,
@@ -83,6 +68,8 @@ class AuthRepository {
     required String password,
   }) async {
     String errorMessage = '';
+    print('email: $email');
+    print('password:$password');
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -90,23 +77,38 @@ class AuthRepository {
       );
     } catch (e) {
       if (e is FirebaseAuthException) {
-        if (e is FirebaseAuthException) {
-          if (e.code == 'invalid-email') {
-            errorMessage = 'Invalid email format.';
-          } else if (e.code == 'wrong-password') {
-            errorMessage = 'Invalid password.';
+        if (e.code == 'invalid-email') {
+          errorMessage = 'Invalid email format.';
+        } else if (e.code == 'wrong-password') {
+          errorMessage = 'Invalid password.';
+        } else {
+          if (email.isEmpty) {
+            errorMessage = 'Please enter your email.';
+          } else if (password.isEmpty) {
+            errorMessage = 'Please enter your password.';
           } else {
-            if (email.isEmpty) {
-              errorMessage = 'Please enter your email.';
-            } else if (password.isEmpty) {
-              errorMessage = 'Please enter your password.';
-            } else {
-              errorMessage = 'Email or password may be wrong.';
-            }
+            errorMessage = 'Email or password may be wrong.';
           }
         }
       }
     }
     return errorMessage;
+  }
+
+  Future<UserModel?> checkUserStatus() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      print('User not null');
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(user.uid).get();
+      if (userDoc.exists) {
+        return UserModel.fromJson(userDoc.data() as Map<String, dynamic>);
+      }
+    }
+    return null;
+  }
+
+  void LogOut() {
+    FirebaseAuth.instance.signOut();
   }
 }

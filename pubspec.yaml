@@ -40,10 +40,12 @@ dependencies:
   equatable: ^2.0.5
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
-  google_sign_in: ^6.1.4
-  email_validator: ^2.1.17
+  dropdown_button2: ^2.3.8
   flutter_svg_icons: ^0.0.1+3
   cloud_firestore: ^4.8.4
+  http: ^1.1.0
+  carousel_slider: ^4.2.1
+  dots_indicator: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +75,14 @@ flutter:
     - assets/icons/eyeOffIcon.svg
     - assets/icons/backArrowIcon.svg
     - assets/icons/impIcon.svg
+    - assets/icons/exitIcon.svg
+    - assets/icons/burgerIcon.svg
+    - assets/icons/propertyIcon.svg
+    - assets/icons/dateIcon.svg
+    - assets/icons/starIcon.svg
+    - assets/logos/keeLogo.png
+    - assets/logos/kLogo.png
+    - assets/logos/byOtonomusLogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -85,17 +95,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: MontserratMedium
+      fonts:
+        - asset: fonts/Montserrat-Medium.ttf
+    - family: MontserratRegular
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+    - family: MontserratSemiBold
+      fonts:
+        - asset: fonts/Montserrat-SemiBold.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

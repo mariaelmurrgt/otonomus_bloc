@@ -30,4 +30,11 @@ class UserModel {
         "lastName": lastName,
         "userId": userId,
       };
+
+  static UserModel get defaultUser => UserModel(
+        email: '',
+        firstName: '',
+        lastName: '',
+        userId: '',
+      );
 }

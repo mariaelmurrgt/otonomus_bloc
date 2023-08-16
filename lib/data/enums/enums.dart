@@ -12,3 +12,9 @@ enum SignupStatus {
 }
 
 enum LoginStatus { initial, loading, success, failure }
+
+enum FetchPropertStatus {
+  loading,
+  success,
+  failure,
+}

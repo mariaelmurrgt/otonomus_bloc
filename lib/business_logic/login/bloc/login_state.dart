@@ -1,10 +1,27 @@
 part of 'login_bloc.dart';
 
-sealed class LoginState extends Equatable {
-  const LoginState();
-  
-  @override
-  List<Object> get props => [];
-}
+final class LoginState extends Equatable {
+  const LoginState(this.status, this.email, this.password, this.errorMessage);
 
-final class LoginInitial extends LoginState {}
+  final LoginStatus status;
+  final String email;
+  final String password;
+  final String errorMessage;
+
+  LoginState copyWith({
+    LoginStatus? status,
+    String? email,
+    String? password,
+    String? errorMessage,
+  }) {
+    return LoginState(
+      status ?? this.status,
+      email ?? this.email,
+      password ?? this.password,
+      errorMessage ?? this.errorMessage,
+    );
+  }
+
+  @override
+  List<Object> get props => [status, email, password, errorMessage];
+}

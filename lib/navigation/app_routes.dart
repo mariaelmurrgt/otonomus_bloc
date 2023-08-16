@@ -1,5 +1,5 @@
 class AppRoutes {
-  static const String loadingScreenRoute = '/loadingScreen';
+  static const String loadingScreenRoute = '/loading';
   static const String homeRoute = '/home';
   static const String logInRoute = '/login';
   static const String singUpMainRoute = '/signupmain';

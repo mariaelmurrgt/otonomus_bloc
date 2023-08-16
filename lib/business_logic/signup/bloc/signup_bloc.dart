@@ -16,7 +16,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupFirstNameChanged>(_onFirstNameChanged);
     on<SignupLastNameChanged>(_onLastNameChanged);
     on<SignUpSubmitted>(_onSubmitted);
-    on<ClearError>(_onClearError);
+    on<ClearErrorSignUp>(_onClearError);
   }
 
   final AuthRepository _authRepository;
@@ -66,7 +66,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   void _onClearError(
-    ClearError event,
+    ClearErrorSignUp event,
     Emitter<SignupState> emit,
   ) {
     emit(

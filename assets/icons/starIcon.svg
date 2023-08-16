@@ -1,0 +1,15 @@
+<svg id="Icon_16x_Star" data-name="Icon/16x/Star" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Icon_16x_Star_Background_Mask_" data-name="Icon/16x/Star (Background/Mask)" width="16" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="Icon_16x_Star_Background_Mask_2" data-name="Icon/16x/Star (Background/Mask)" width="16" height="16" fill="none"/>
+  <g id="Icon_16x_Star-2" data-name="Icon/16x/Star" clip-path="url(#clip-path)">
+    <g id="vuesax_linear_star" data-name="vuesax/linear/star" transform="translate(0.807 0.808)">
+      <g id="star">
+        <path id="Vector" d="M8.209,1.011,9.441,3.5a1.522,1.522,0,0,0,.994.741l2.233.374c1.428.24,1.764,1.284.735,2.315l-1.736,1.75A1.541,1.541,0,0,0,11.3,9.952l.5,2.167c.392,1.715-.511,2.378-2.016,1.482L7.691,12.352a1.5,1.5,0,0,0-1.386,0L4.213,13.6c-1.5.9-2.408.226-2.016-1.482l.5-2.167A1.541,1.541,0,0,0,2.33,8.675L.594,6.925C-.428,5.894-.1,4.85,1.329,4.61l2.233-.374A1.526,1.526,0,0,0,4.549,3.5L5.781,1.011C6.453-.337,7.544-.337,8.209,1.011Z" transform="translate(0)" fill="#f8ae56"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -47,6 +47,6 @@ final class SignUpSubmitted extends SignupEvent {
   const SignUpSubmitted();
 }
 
-final class ClearError extends SignupEvent {
-  const ClearError();
+final class ClearErrorSignUp extends SignupEvent {
+  const ClearErrorSignUp();
 }
