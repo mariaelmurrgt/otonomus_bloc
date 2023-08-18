@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otonomus/business_logic/blocs.dart';
 import 'package:otonomus/data/repository/auth_repository.dart';
 import 'package:otonomus/data/repository/property_repository.dart';
+import 'package:otonomus/data/repository/user_repository.dart';
 import 'package:otonomus/navigation/app_routes.dart';
 import 'package:otonomus/navigation/handle_navigation.dart';
 import 'package:otonomus/presentation/screens/screens.dart';
@@ -20,43 +21,44 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => PropertyRepository(),
+      create: (context) => UserRepository(),
       child: RepositoryProvider(
-          create: (context) => AuthRepository(),
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => SignupBloc(
-                  RepositoryProvider.of<AuthRepository>(context),
+        create: (context) => PropertyRepository(),
+        child: RepositoryProvider(
+            create: (context) => AuthRepository(),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => SignupBloc(
+                    RepositoryProvider.of<AuthRepository>(context),
+                  ),
                 ),
-              ),
-              BlocProvider(
-                create: (context) => LoginBloc(
-                  RepositoryProvider.of<AuthRepository>(context),
+                BlocProvider(
+                  create: (context) => LoginBloc(
+                    RepositoryProvider.of<AuthRepository>(context),
+                  ),
                 ),
-              ),
-              BlocProvider(
-                create: (context) => LoadingBloc(
-                  RepositoryProvider.of<AuthRepository>(context),
+                BlocProvider(
+                  create: (context) => HomeBloc(
+                    RepositoryProvider.of<PropertyRepository>(context),
+                  ),
                 ),
-              ),
-              BlocProvider(
-                create: (context) => DrawerBloc(
-                  RepositoryProvider.of<AuthRepository>(context),
+                BlocProvider(
+                  create: (context) => AuthenticationBloc(
+                    authenticationRepository:
+                        RepositoryProvider.of<AuthRepository>(context),
+                    userRepository:
+                        RepositoryProvider.of<UserRepository>(context),
+                  ),
                 ),
+              ],
+              child: MaterialApp(
+                navigatorKey: HandleNavigation.navigatorKey,
+                initialRoute: '/loading',
+                onGenerateRoute: onGenerateRoute,
               ),
-              BlocProvider(
-                create: (context) => HomeBloc(
-                  RepositoryProvider.of<PropertyRepository>(context),
-                ),
-              ),
-            ],
-            child: MaterialApp(
-              navigatorKey: HandleNavigation.navigatorKey,
-              initialRoute: '/loading',
-              onGenerateRoute: onGenerateRoute,
-            ),
-          )),
+            )),
+      ),
     );
   }
 }

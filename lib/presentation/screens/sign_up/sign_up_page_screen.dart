@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_icons/flutter_svg_icons.dart';
-import 'package:otonomus/business_logic/signup/bloc/signup_bloc.dart';
+import 'package:otonomus/business_logic/blocs.dart';
 import 'package:otonomus/data/enums/enums.dart';
 import 'package:otonomus/navigation/handle_navigation.dart';
 import 'package:otonomus/presentation/shared_widgets/shared_widgets.dart';
@@ -21,6 +21,10 @@ class _SignUpPageState extends State<SignUpPage> {
         if (state.errorMessage != '') {
           GlobalSnackbar.showError(context, state.errorMessage);
           BlocProvider.of<SignupBloc>(context).add(ClearErrorSignUp());
+        }
+        if (state.status == SignupStatus.success) {
+          BlocProvider.of<AuthenticationBloc>(context).add(
+              AuthenticationStatusChanged(AuthenticationStatus.authenticated));
         }
       },
       child: BlocBuilder<SignupBloc, SignupState>(
@@ -46,7 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     icon: SvgIconData(
                                       'assets/icons/backArrowIcon.svg',
                                     ),
-                                    size: 24,
+                                    size: 15,
                                   ),
                                 ),
                                 SizedBox(

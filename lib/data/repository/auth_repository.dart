@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:otonomus/data/models/user_model.dart';
 
 class AuthRepository {
-  final _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String> signUp({
@@ -17,6 +18,13 @@ class AuthRepository {
     print('first name:$firstName');
     print('last name: $lastName');
     print('password:$password');
+    if (email.isEmpty ||
+        password.isEmpty ||
+        firstName.isEmpty ||
+        lastName.isEmpty) {
+      errorMessage = 'Please fill the infomrations required.';
+      return errorMessage;
+    }
     if (password.length < 8 && !password.contains(RegExp(r'[A-Z]'))) {
       errorMessage =
           'Password should contain 8 characters and at least 1 uppercase letter.';
@@ -27,13 +35,14 @@ class AuthRepository {
         email: email,
         password: password,
       );
+
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         UserModel userModel = UserModel(
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
-          userId: user.uid,
+          email,
+          firstName,
+          lastName,
+          user.uid,
         );
         await _firestore
             .collection('users')
@@ -50,13 +59,7 @@ class AuthRepository {
         } else if (e.code == 'email-already-in-use') {
           errorMessage = 'Email already exits.';
         } else {
-          if (email.isEmpty) {
-            errorMessage = 'Please enter your email.';
-          } else if (password.isEmpty) {
-            errorMessage = 'Please enter your password.';
-          } else {
-            errorMessage = 'Something went wrong.';
-          }
+          errorMessage = 'Something went wrong.';
         }
       }
     }
@@ -95,20 +98,7 @@ class AuthRepository {
     return errorMessage;
   }
 
-  Future<UserModel?> checkUserStatus() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      print('User not null');
-      DocumentSnapshot userDoc =
-          await _firestore.collection('users').doc(user.uid).get();
-      if (userDoc.exists) {
-        return UserModel.fromJson(userDoc.data() as Map<String, dynamic>);
-      }
-    }
-    return null;
-  }
-
-  void LogOut() {
+  void logOut() {
     FirebaseAuth.instance.signOut();
   }
 }

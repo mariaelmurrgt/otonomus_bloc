@@ -7,9 +7,13 @@ sealed class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class GetAllProperties extends HomeEvent {}
+class GetAllProperties extends HomeEvent {
+  const GetAllProperties();
+  @override
+  List<Object> get props => [];
+}
 
-final class SelectedPropertyChanged extends HomeEvent {
+class SelectedPropertyChanged extends HomeEvent {
   const SelectedPropertyChanged(this.selectedProperty);
 
   final PropertyModel selectedProperty;
@@ -17,12 +21,16 @@ final class SelectedPropertyChanged extends HomeEvent {
   List<Object> get props => [selectedProperty];
 }
 
-final class SelectedPageChanged extends HomeEvent {
-  const SelectedPageChanged(this.availableSpace, this.newIndex);
-
-  final AvailableSpace availableSpace;
-  final int newIndex;
+class SelectedImageChanged extends HomeEvent {
+  const SelectedImageChanged(this.index);
+  final int index;
 
   @override
-  List<Object> get props => [availableSpace, newIndex];
+  List<Object> get props => [index];
+}
+
+class OnClear extends HomeEvent {
+  const OnClear();
+  @override
+  List<Object> get props => [];
 }

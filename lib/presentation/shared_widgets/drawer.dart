@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:otonomus/business_logic/authentication/bloc/authentication_bloc.dart';
 import 'package:otonomus/business_logic/blocs.dart';
 import 'package:otonomus/data/models/user_model.dart';
 import 'package:otonomus/navigation/handle_navigation.dart';
@@ -13,13 +14,6 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    BlocProvider.of<DrawerBloc>(context).add(CheckUser());
-  }
-
   @override
   Widget build(BuildContext context) {
     String capitalizeEachWord(String input) {
@@ -39,8 +33,13 @@ class _MyDrawerState extends State<MyDrawer> {
       return capitalizedWords.join(' ');
     }
 
-    return BlocBuilder<DrawerBloc, DrawerState>(
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
+        bool isDifferent = state.user.email != UserModel.defaultUser.email ||
+            state.user.firstName != UserModel.defaultUser.firstName ||
+            state.user.lastName != UserModel.defaultUser.lastName ||
+            state.user.userId != UserModel.defaultUser.userId;
+
         return Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -82,21 +81,27 @@ class _MyDrawerState extends State<MyDrawer> {
                   height: 50,
                 ),
               ),
-              if (state.user == UserModel.defaultUser)
+              if (!isDifferent)
                 Container(
                   margin: EdgeInsets.all(10),
                   child: CustomGlobalButton(
                     title: 'Log In',
                     color: Color(0xFFB2BBCA),
                     onPressed: () {
+                      // BlocProvider.of<LoginBloc>(context)
+                      //     .add(LogOutClearEverything());
+                      // BlocProvider.of<SignupBloc>(context)
+                      //     .add(ClearEverything());
+
                       Scaffold.of(context).openEndDrawer();
+
                       HandleNavigation.push('/login');
                     },
                     width: 200,
                     height: 50,
                   ),
                 ),
-              if (state.user != UserModel.defaultUser)
+              if (isDifferent)
                 Container(
                   margin: EdgeInsets.all(10),
                   child: CustomGlobalButton(
@@ -104,7 +109,12 @@ class _MyDrawerState extends State<MyDrawer> {
                     color: Color(0xFFB2BBCA),
                     onPressed: () {
                       //currentUserProvider.handleLogOut(context);
-                      BlocProvider.of<DrawerBloc>(context).add(LogOut());
+                      BlocProvider.of<AuthenticationBloc>(context)
+                          .add(AuthenticationLogoutRequested());
+                      BlocProvider.of<LoginBloc>(context)
+                          .add(LogOutClearEverything());
+                      BlocProvider.of<SignupBloc>(context)
+                          .add(ClearEverything());
                       Scaffold.of(context).openEndDrawer();
                     },
                     width: 200,

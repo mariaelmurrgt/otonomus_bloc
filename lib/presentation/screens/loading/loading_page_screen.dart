@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:otonomus/business_logic/loading/bloc/loading_bloc.dart';
+import 'package:otonomus/business_logic/authentication/bloc/authentication_bloc.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -13,7 +13,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BlocProvider.of<LoadingBloc>(context).add(onLoadingCheckUserStatus());
+    BlocProvider.of<AuthenticationBloc>(context)
+        .add(AuthenticationLoadingRequested());
   }
 
   @override

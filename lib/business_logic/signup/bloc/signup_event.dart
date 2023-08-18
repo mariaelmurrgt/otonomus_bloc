@@ -50,3 +50,7 @@ final class SignUpSubmitted extends SignupEvent {
 final class ClearErrorSignUp extends SignupEvent {
   const ClearErrorSignUp();
 }
+
+final class ClearEverything extends SignupEvent {
+  const ClearEverything();
+}

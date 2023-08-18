@@ -17,7 +17,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             selectedProperty: PropertyModel.defaultProperty)) {
     on<GetAllProperties>(_getAllProperties);
     on<SelectedPropertyChanged>(_onSelectedPropertyChanged);
-    on<SelectedPageChanged>(_onSelectedPageChanged);
+    on<SelectedImageChanged>(_onSelectedImageChanged);
+    //on<OnClear>(_onClear);
   }
 
   final PropertyRepository _propertyRepository;
@@ -54,8 +55,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
   }
 
-  void _onSelectedPageChanged(
-      SelectedPageChanged event, Emitter<HomeState> emit) {
-    event.availableSpace.currentIndex = event.newIndex;
+  void _onSelectedImageChanged(
+    SelectedImageChanged event,
+    Emitter<HomeState> emit,
+  ) {
+    //final state = this.state;
+    print(state.index);
+    emit(state.copyWith(
+      index: event.index,
+    ));
   }
+// void _onClear (OnClear event , Emitter<HomeState> emit){
+// emit()
+// }
 }

@@ -5,23 +5,23 @@ UserModel UserModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 String UserModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-  String email;
-  String firstName;
-  String lastName;
-  String userId;
+  final String email;
+  final String firstName;
+  final String lastName;
+  final String userId;
 
-  UserModel({
-    required this.email,
-    required this.firstName,
-    required this.lastName,
-    required this.userId,
-  });
+  const UserModel(
+    this.email,
+    this.firstName,
+    this.lastName,
+    this.userId,
+  );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        email: json["email"],
-        firstName: json["firstName"],
-        lastName: json["lastName"],
-        userId: json["userId"],
+        json["email"],
+        json["firstName"],
+        json["lastName"],
+        json["userId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -32,9 +32,11 @@ class UserModel {
       };
 
   static UserModel get defaultUser => UserModel(
-        email: '',
-        firstName: '',
-        lastName: '',
-        userId: '',
+        '',
+        '',
+        '',
+        '',
       );
+
+  static const empty = UserModel('', '', '', '');
 }

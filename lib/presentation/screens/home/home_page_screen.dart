@@ -238,13 +238,24 @@ class _HomePageState extends State<HomePage> {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: state.selectedProperty == null
-                          ? 0
-                          : state.selectedProperty!.availableSpaces.length,
+                      itemCount: state.selectedProperty.availableSpaces.length,
                       itemBuilder: (context, index) {
                         final availableSpaces =
                             state.selectedProperty.availableSpaces[index];
-                        return PropertyCard(availableSpaces: availableSpaces);
+                        return PropertyCard(
+                          availableSpaces: availableSpaces,
+                          // onPageChanged: (index, p1) {
+                          //   BlocProvider.of<HomeBloc>(context)
+                          //       .add(SelectedImageChanged(index));
+                          // },
+                          // dotsCount: state.selectedProperty
+                          //     .availableSpaces[index].spaceImages.length,
+                          // position: state.index,
+                          // // image: state.selectedProperty
+                          // //     .availableSpaces[index].spaceImages[index],
+                          // itemCount: state.selectedProperty
+                          //     .availableSpaces[index].spaceImages.length,
+                        );
                       },
                     ),
                   ],

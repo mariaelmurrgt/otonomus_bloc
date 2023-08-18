@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_icons/flutter_svg_icons.dart';
+import 'package:otonomus/business_logic/authentication/bloc/authentication_bloc.dart';
 import 'package:otonomus/business_logic/login/bloc/login_bloc.dart';
 import 'package:otonomus/data/enums/enums.dart';
 import 'package:otonomus/navigation/handle_navigation.dart';
@@ -21,6 +22,10 @@ class _LoginPageState extends State<LoginPage> {
         if (state.errorMessage != '') {
           GlobalSnackbar.showError(context, state.errorMessage);
           BlocProvider.of<LoginBloc>(context).add(ClearErrorLogIn());
+        }
+        if (state.status == LoginStatus.success) {
+          BlocProvider.of<AuthenticationBloc>(context).add(
+              AuthenticationStatusChanged(AuthenticationStatus.authenticated));
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -48,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                                     icon: SvgIconData(
                                       'assets/icons/exitIcon.svg',
                                     ),
-                                    size: 24,
+                                    size: 15,
                                   ),
                                 ),
                               ),

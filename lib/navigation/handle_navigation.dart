@@ -39,11 +39,6 @@ class HandleNavigation {
     navigatorKey.currentState!.popUntil(predicate);
   }
 
-  static void popUntilHome() {
-    navigatorKey.currentState!
-        .popUntil((route) => route.settings.name == '/home');
-  }
-
   static void popUntilFirst() {
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }

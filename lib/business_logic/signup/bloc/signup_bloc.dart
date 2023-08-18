@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:otonomus/data/enums/enums.dart';
 import 'package:otonomus/data/repository/auth_repository.dart';
+import 'package:otonomus/navigation/handle_navigation.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
@@ -17,6 +18,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupLastNameChanged>(_onLastNameChanged);
     on<SignUpSubmitted>(_onSubmitted);
     on<ClearErrorSignUp>(_onClearError);
+    on<ClearEverything>(_onClearEverything);
   }
 
   final AuthRepository _authRepository;
@@ -91,6 +93,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       print('done');
       if (error_message == '') {
         emit(state.copyWith(status: SignupStatus.success));
+        HandleNavigation.popUntilFirst();
       } else {
         emit(state.copyWith(
             status: SignupStatus.failure, errorMessage: error_message));
@@ -101,5 +104,16 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       emit(state.copyWith(
           status: SignupStatus.failure, errorMessage: 'Sign up failed'));
     }
+  }
+
+  void _onClearEverything(ClearEverything event, Emitter<SignupState> emit) {
+    emit(state.copyWith(
+      status: SignupStatus.initial,
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      errorMessage: '',
+    ));
   }
 }

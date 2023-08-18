@@ -32,3 +32,7 @@ final class LoginSubmitted extends LoginEvent {
 final class ClearErrorLogIn extends LoginEvent {
   const ClearErrorLogIn();
 }
+
+final class LogOutClearEverything extends LoginEvent {
+  const LogOutClearEverything();
+}
